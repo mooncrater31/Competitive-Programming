@@ -14,35 +14,38 @@ public class VanyaAndArrays
         int[] A = new int[n] ;
         S = bro.readLine().split(" ") ;
         
+
         
         int[] BIT = new int[n+1] ;
-        for(int i=n-1;i>=0;i--)
+        for(int i=0;i<n;i++)
         {
             A[i] = Integer.parseInt(S[i]) ;//Reversed
         }
-        int[] map = new int[n] ;
+        HashMap<Long,Integer> HM = new HashMap<Long,Integer>() ;
         List<Pair> init = new ArrayList<Pair>() ;
         for(int i=0;i<n;i++)
         {
             init.add(new Pair(A[i],i)) ;
         }
         Collections.sort(init) ;
+        int index = 0 ;
         for(int i=0;i<n;i++)
         {
-            map[init.get(i).index] = i ;
+            if(!HM.containsKey(init.get(i).value))
+            {
+                HM.put(init.get(i).value,index++) ;
+            }
         }
         long[] pairs = new long[n] ;
         long ans = 0 ;
         
-        if(debug) sout("map :"+Arrays.toString(map)) ;
+        
         for(int i=n-1;i>=0;i--)
         {
-            update(map[i]+1,1,BIT) ;
-            pairs[i] = (n-i-query(map[i]+1,BIT)) ;
-            
-            
+            update(HM.get((long)A[i])+1,1,BIT) ;
+            pairs[i] = (n-i-query(HM.get((long)A[i])+1,BIT)) ;
         }
-        
+        if(debug) sout("pairs before sorting :"+Arrays.toString(pairs)) ;
         Arrays.sort(pairs) ;
         if(debug)
         {
