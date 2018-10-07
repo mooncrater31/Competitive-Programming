@@ -12,6 +12,7 @@ public class VanyaAndArrays
         int n = Integer.parseInt(S[0]) ;
         long k = Long.parseLong(S[1]) ;
         int[] A = new int[n] ;
+        int[] B = new int[n] ;
         S = bro.readLine().split(" ") ;
         
 
@@ -20,30 +21,24 @@ public class VanyaAndArrays
         for(int i=0;i<n;i++)
         {
             A[i] = Integer.parseInt(S[i]) ;//Reversed
+            B[i] = A[i] ;
         }
-        HashMap<Long,Integer> HM = new HashMap<Long,Integer>() ;
-        List<Pair> init = new ArrayList<Pair>() ;
-        for(int i=0;i<n;i++)
-        {
-            init.add(new Pair(A[i],i)) ;
-        }
-        Collections.sort(init) ;
+        HashMap<Integer,Integer> HM = new HashMap<Integer,Integer>() ;
+        Arrays.sort(B) ;// Can be replaced by partitioning algorithm.
         int index = 0 ;
         for(int i=0;i<n;i++)
         {
-            if(!HM.containsKey(init.get(i).value))
+            if(!HM.containsKey(B[i]))
             {
-                HM.put(init.get(i).value,index++) ;
+                HM.put(B[i],index++) ;
             }
         }
         long[] pairs = new long[n] ;
         long ans = 0 ;
-        
-        
         for(int i=n-1;i>=0;i--)
         {
-            update(HM.get((long)A[i])+1,1,BIT) ;
-            pairs[i] = (n-i-query(HM.get((long)A[i])+1,BIT)) ;
+            update(HM.get(A[i])+1,1,BIT) ;
+            pairs[i] = (n-i-query(HM.get(A[i])+1,BIT)) ;
         }
         if(debug) sout("pairs before sorting :"+Arrays.toString(pairs)) ;
         Arrays.sort(pairs) ;
@@ -59,7 +54,7 @@ public class VanyaAndArrays
         
         for(int i=n-1;i>=0;i--)
         {
-            long rem = k-pairs[i] ;
+            long rem = k-pairs[i] ;//Last value first, PriorityQueue?
             //search
             int idx = Collections.binarySearch(L,new Pair(rem,Integer.MIN_VALUE)) ;
             if(idx<0) idx = -idx-1 ;
