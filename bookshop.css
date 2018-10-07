@@ -1,0 +1,29 @@
+bookshop {
+	background-color: #009000 ;
+	width: 100%;
+}
+book {
+		display:block ;
+		margin-bottom: 30pt ;
+		margin-left: 0;
+}
+title {
+		display:block;
+		color: #ff0000 ;
+		font-size: 20pt ;
+}
+author {
+		display: block ;
+		color: #0000ff ;
+		font-size: 20pt;
+}
+ISBN {
+		display: block;
+		color: #000000 ;
+		margin-left: 20pt ;
+}
+price {
+		display : block ;
+		color: #ff0000 ;
+		margin-left:20pt ;
+}

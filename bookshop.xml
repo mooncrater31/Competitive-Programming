@@ -1,0 +1,31 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE bookshop SYSTEM "bookshop.dtd"> -->
+<!DOCTYPE bookshop
+[
+<!ELEMENT bookshop (title,author,ISBN,price)>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT author (#PCDATA)>
+<!ELEMENT ISBN (#PCDATA)>
+<!ELEMENT price (#PCDATA)>
+]>
+<?xml-stylesheet type="text/css" href="bookshop.css"?>
+<bookshop>
+	<book>
+		<title>a</title>
+		<author>Pandey Ji</author>
+		<ISBN>0</ISBN>
+		<price>100</price>
+	</book>
+	<book>
+		<title>b</title>
+		<author>Gupta Ji</author>
+		<ISBN>1</ISBN>
+		<price>150</price>
+	</book>
+	<book>
+		<title>c</title>
+		<author>Arora Ji</author>
+		<ISBN>2</ISBN>
+		<price>200</price>
+	</book>
+</bookshop>	
