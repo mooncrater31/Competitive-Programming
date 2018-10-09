@@ -13,37 +13,44 @@ public class GoriCrush
         int K = Integer.parseInt(S[2]) ;
         
         int[] A = new int[N] ;
-        List<Integer> L = new ArrayList<Integer>() ;
+        // List<Integer> L = new ArrayList<Integer>() ;
+        int[] L = new int[(int)1e5] ;
         S = bro.readLine().split(" ") ;
         for(int i=0;i<N;i++)
         {
             A[i] = Integer.parseInt(S[i]) ;
-            L.add(A[i]) ;
+            L[i] = A[i] ;
         }
+        int index = N ;
         String[][] queries = new String[Q][] ;
         for(int i=0;i<Q;i++)
         {
             queries[i] = bro.readLine().split(" ");
             if(queries[i][0].charAt(0)=='0')
             {
-                L.add(Integer.parseInt(queries[i][2])) ;
+                // L.add() ;
+                L[index++] = Integer.parseInt(queries[i][2]) ;
             }
             else 
             {
-                L.add(Integer.parseInt(queries[i][1])) ;
-                L.add(Integer.parseInt(queries[i][2])) ;
-                L.add(Integer.parseInt(queries[i][3])) ;
-                L.add(Integer.parseInt(queries[i][4])) ;
+                // L.add(Integer.parseInt(queries[i][1])) ;
+                // L.add(Integer.parseInt(queries[i][2])) ;
+                // L.add(Integer.parseInt(queries[i][3])) ;
+                // L.add(Integer.parseInt(queries[i][4])) ;
+                L[index++] = Integer.parseInt(queries[i][1]) ;
+                L[index++] = Integer.parseInt(queries[i][2]) ;
+                L[index++] = Integer.parseInt(queries[i][3]) ;
+                L[index++] = Integer.parseInt(queries[i][4]) ;
             }
         }
-        Collections.sort(L) ;
+        Arrays.sort(L,0,index) ;//Takes 4 times less time.
         
         HashMap<Integer,Integer> map = new HashMap<Integer,Integer>() ;
         int idx = 1; 
-        for(int i=0;i<L.size();i++)
+        for(int i=0;i<index;i++)
         {
             if(!map.containsKey(L.get(i))) 
-                map.put(L.get(i),idx++) ;
+                map.put(L[i],idx++) ;
         }
         int[] BIT = new int[idx] ;
         for(int i=0;i<N;i++)
