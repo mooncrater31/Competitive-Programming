@@ -14,7 +14,7 @@ public class GoriCrush
         
         int[] A = new int[N] ;
         // List<Integer> L = new ArrayList<Integer>() ;
-        int[] L = new int[(int)1e5] ;
+        int[] L = new int[(int)1e6] ;
         S = bro.readLine().split(" ") ;
         for(int i=0;i<N;i++)
         {
@@ -22,25 +22,31 @@ public class GoriCrush
             L[i] = A[i] ;
         }
         int index = N ;
-        String[][] queries = new String[Q][] ;
+        int[][] queries = new int[Q][] ;
         for(int i=0;i<Q;i++)
         {
-            queries[i] = bro.readLine().split(" ");
-            if(queries[i][0].charAt(0)=='0')
+            S = bro.readLine().split(" ");
+            
+            if(S[0].charAt(0)=='0')
             {
-                // L.add() ;
-                L[index++] = Integer.parseInt(queries[i][2]) ;
+                queries[i] = new int[3] ;
+                queries[i][0] = 0 ;
+                queries[i][1] = Integer.parseInt(S[1]) ;
+                queries[i][2] = Integer.parseInt(S[2]) ;
+                L[index++] = queries[i][2] ;
             }
             else 
             {
-                // L.add(Integer.parseInt(queries[i][1])) ;
-                // L.add(Integer.parseInt(queries[i][2])) ;
-                // L.add(Integer.parseInt(queries[i][3])) ;
-                // L.add(Integer.parseInt(queries[i][4])) ;
-                L[index++] = Integer.parseInt(queries[i][1]) ;
-                L[index++] = Integer.parseInt(queries[i][2]) ;
-                L[index++] = Integer.parseInt(queries[i][3]) ;
-                L[index++] = Integer.parseInt(queries[i][4]) ;
+                queries[i] = new int[5] ;
+                queries[i][0] = 1 ;
+                queries[i][1] = Integer.parseInt(S[1]) ;
+                queries[i][2] = Integer.parseInt(S[2]) ;
+                queries[i][3] = Integer.parseInt(S[3]) ;
+                queries[i][4] = Integer.parseInt(S[4]) ;
+                L[index++] = queries[i][1] ;
+                L[index++] = queries[i][2] ;
+                L[index++] = queries[i][3] ;
+                L[index++] = queries[i][4] ;
             }
         }
         Arrays.sort(L,0,index) ;//Takes 4 times less time.
@@ -49,7 +55,7 @@ public class GoriCrush
         int idx = 1; 
         for(int i=0;i<index;i++)
         {
-            if(!map.containsKey(L.get(i))) 
+            if(!map.containsKey(L[i])) 
                 map.put(L[i],idx++) ;
         }
         int[] BIT = new int[idx] ;
@@ -57,20 +63,20 @@ public class GoriCrush
             update(map.get(A[i]),1,BIT) ;
         for(int i=0;i<Q;i++)
         {
-            if(queries[i][0].charAt(0)=='0')
+            if(queries[i][0]==0)
             {
-                int x = Integer.parseInt(queries[i][1])-1 ;
-                int y = Integer.parseInt(queries[i][2]) ;
+                int x = queries[i][1]-1 ;
+                int y = queries[i][2] ;
                 update(map.get(A[x]),-1,BIT) ;
                 A[x] = y ;
                 update(map.get(y),1,BIT) ;
             }
             else 
             {
-                int a = Integer.parseInt(queries[i][1]) ;
-                int b = Integer.parseInt(queries[i][2]) ;
-                int c = Integer.parseInt(queries[i][3]) ;
-                int d = Integer.parseInt(queries[i][4]) ;
+                int a = queries[i][1] ;
+                int b = queries[i][2] ;
+                int c = queries[i][3] ;
+                int d = queries[i][4] ;
                 if(b<c) System.out.println("Do not propose") ;
                 else if(d<a) System.out.println("Do not propose") ;
                 else 
