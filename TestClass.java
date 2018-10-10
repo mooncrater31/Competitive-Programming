@@ -1,41 +1,30 @@
-/* IMPORTANT: class must not be public. */
-
-/*
- * uncomment this if you want to read input.
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-*/
 import java.util.* ;
+
 
 class TestClass {
     public static void main(String args[] ) throws Exception {
+        double ratSum = 0 ;
+        int n = 1000 ;
+        for(int j=0;j<n;j++)
+        {
+        int[] A = new int[(int)1e5] ;
+        List<Integer> L = new ArrayList<Integer>() ;
+        for(int i=0;i<A.length;i++)
+        {
+            int no = (int)(Math.random()*(int)1e5) ;
+            A[i] = no ;
+            L.add(A[i]) ;
+        }
         
-
-        int[] A = {9,8,4,10,14,18,0,1,17} ;
-        List<obj> L = new ArrayList<obj>() ;
-        for(int i:A)
-            L.add(new obj(i)) ;
+        long startTime = System.nanoTime() ;
+        Arrays.sort(A) ;
+        long endTime = System.nanoTime() ;
         Collections.sort(L) ;
-        for(obj o:L)
-        {
-            System.out.print(o.a+" ") ;
-        }
-        System.out.println() ;
+        long endTime2 = System.nanoTime() ;
+        long t1 = (endTime-startTime), t2 = (endTime2-endTime) ;
+        ratSum+=(double)t2/t1 ;
+        System.out.println("Arrays.sort took :"+t1+" Collections.sort took :"+t2+" ratio :"+((double)t2/t1)) ;
     }
-}
-class obj implements Comparable<obj>
-{
-    int a ;
-    obj(int a)
-    {
-        this.a = a ;
-    }
-    public int compareTo(obj o)
-    {
-        if(this.a>o.a)//Current element is more than input 
-        {
-            return 1 ;
-        }
-        else return -1 ;
+    System.out.println("Average ratio :"+(ratSum/n)) ;
     }
 }
