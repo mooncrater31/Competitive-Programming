@@ -2,6 +2,16 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Labyrinth",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "stopOnEntry": false,
+            "mainClass": "Labyrinth",
+            "args": ""
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TestClass",
             "request": "launch",
             "cwd": "${workspaceFolder}",

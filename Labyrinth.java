@@ -26,14 +26,15 @@ public class Labyrinth
             for(int j=0;j<m;j++)
                 M[i][j] = s1.charAt(j) ;
         }
-        boolean[][] visited = new boolean[n][m] ;
-        System.out.println(touch(M,sx,sy,left,right,visited)) ;
+        
+        System.out.println(touch(M,sx,sy,left,right)) ;
 
 
     }
-    static int touch(char[][] M,int x,int y,int left,int right,boolean[][] visited)
+    static int touch(char[][] M,int x,int y,int left,int right)
     {
-        if(debug) System.out.println("Visiting :"+x+" "+y) ;
+        int[][][] visited = new int[M.length][M[0].length][2] ;
+        boolean[][] seen = new boolean[M.length][M[0].length] ;
         int H = M.length ;
         int W = M[0].length ;
         ArrayDeque<Pair> pq = new ArrayDeque<Pair>() ;
@@ -44,10 +45,16 @@ public class Labyrinth
             Pair p = pq.poll() ;
             
             if(p.x<0 || p.x>=H || p.y<0 || p.y>=W) continue ;
-            if(visited[p.x][p.y]) continue ;
+            
+            if(seen[p.x][p.y] && p.left<=visited[p.x][p.y][0] && p.right<=visited[p.x][p.y][1]) continue ;
             if(M[p.x][p.y]=='*') continue ;
-            visited[p.x][p.y] = true ;
-            sum++ ;
+            // visited[p.x][p.y] = true ;
+            if(!seen[p.x][p.y]) sum++ ;
+            seen[p.x][p.y] = true ;
+            visited[p.x][p.y][0] = Math.max(visited[p.x][p.y][0],p.left) ;
+            visited[p.x][p.y][1] = Math.max(visited[p.x][p.y][1],p.right) ;
+            if(debug) System.out.println("Visiting :"+p.x+" "+p.y+" left :"+p.left+" right :"+p.right);
+        
             for(int i=0;i<4;i++)
             {
                 int nx = p.x+dx[i] ;
@@ -58,7 +65,7 @@ public class Labyrinth
                     if(p.left>0)
                         pq.add(new Pair(nx,ny,p.left-1,p.right)) ;
                 }
-                else if(i==3) 
+                else if(i==3) //right
                 {
                     if(p.right>0) pq.add(new Pair(nx,ny,p.left,p.right-1)) ;
 

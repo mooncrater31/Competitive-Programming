@@ -11,7 +11,7 @@ public class BobAndArrayQueriesBIT
         String[] S = bro.readLine().split(" ") ;
         int N = Integer.parseInt(S[0]) ;
         int Q = Integer.parseInt(S[1]) ;
-        long[] A = new long[N] ;
+        int[] A = new int[N] ;
         int[] BIT = new int[N+1] ;
         for(int i=0;i<Q;i++)
         {
@@ -20,14 +20,16 @@ public class BobAndArrayQueriesBIT
             int b = Integer.parseInt(S[1]) ;
             if(a==1)
             {
-                A[b-1] = (A[b-1]<<1)+1 ;
+                A[b-1]++ ;
                 update(b,1,BIT) ;
             }
             else if(a==2) 
             {
-                if(A[b-1]%2!=0)//odd
+                if(A[b-1]!=0)//odd
+                {
                     update(b,-1,BIT) ;
-                A[b-1]>>=1 ;//Divide by 2 
+                    A[b-1]-- ;//Divide by 2 
+                }
             }
             else
             {
